@@ -1,0 +1,31 @@
+CONTEXT:
+You are building a reusable data table component for a React application dashboard. 
+The table needs to display tabular data with interactive features for users to explore 
+and navigate large datasets efficiently.
+
+TASK:
+Create a React data table component with:
+- Sortable columns (click column header to sort ascending/descending)
+- Text filter input to search across all columns
+- Pagination with configurable page size
+- Proper TypeScript types throughout
+
+FORMAT:
+- Single .tsx file with all components
+- Use React functional components with hooks
+- Include TypeScript interfaces for all props and data types
+- Include a demo/example usage section with sample data
+- Use only React (no external table libraries)
+
+CONSTRAINTS:
+- Do not use external libraries (no Material UI, no AG Grid, no react-table)
+- Use Tailwind CSS for styling
+- Support generic data types (table should work with any object shape)
+- Sort should toggle: ascending → descending → no sort
+- Filter should be case-insensitive and search all string/number fields
+- Pagination must show current page, total pages, and allow page size selection
+- Handle edge cases: empty data, single page, no filter results
+
+EXAMPLES:
+Sample data: [{ id: 1, name: "Alice", email: "alice@example.com", age: 28 }]
+Interactions: Click "Name" → A-Z, click again → Z-A, click again → unsorted

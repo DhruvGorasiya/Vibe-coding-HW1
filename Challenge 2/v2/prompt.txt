@@ -1,0 +1,9 @@
+CONSTRAINTS (additions):
+- Generic type parameter should use "extends object" not "Record<string, unknown>"
+- Require a rowKey prop to specify which field to use as React key
+- Show "0 entries" correctly when data is empty
+- Add aria-label to interactive elements for accessibility
+- Use semantic HTML (thead, tbody, th scope)
+
+EXAMPLES:
+<DataTable data={users} columns={columns} rowKey="id" defaultPageSize={10} />

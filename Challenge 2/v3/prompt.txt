@@ -1,0 +1,19 @@
+Optional props: defaultPageSize, pageSizeOptions, className, loading, 
+               onRowClick, emptyMessage, noResultsMessage
+
+Column configuration must support:
+- key: keyof T (required)
+- header: string (required)  
+- sortable?: boolean (default true)
+- render?: (value, row, index) => ReactNode
+- width?: string (e.g., "150px")
+- align?: "left" | "center" | "right"
+
+Pagination:
+- Page number buttons (show up to 5 with ellipsis)
+- "Showing X to Y of Z entries" info
+
+Accessibility:
+- aria-sort on sortable column headers
+- Keyboard navigation (Enter/Space to sort)
+- role="grid" on table
