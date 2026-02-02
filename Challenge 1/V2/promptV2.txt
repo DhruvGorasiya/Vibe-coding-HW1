@@ -1,0 +1,42 @@
+CONTEXT:
+You are building a utility library for a web application that needs to validate user email inputs during registration and contact forms. Invalid emails cause delivery failures and pollute the database. The validation must balance RFC 5321 compliance with practical real-world usage.
+
+TASK:
+Create an email validation function using regex that:
+- Validates standard email formats (user@domain.com)
+- Handles plus addressing (user+tag@domain.com)
+- Handles subdomains (user@mail.domain.com)
+- Handles short domains (user@a.co is valid)
+- Returns a boolean indicating validity
+
+FORMAT:
+- Single TypeScript function named `validateEmail`
+- Include inline comments explaining validation logic
+- Follow with a comprehensive test suite
+- Use strict TypeScript typing
+
+CONSTRAINTS:
+- Do not use external libraries
+- Local part maximum: 64 characters (RFC 5321)
+- Total email maximum: 254 characters (RFC 5321)
+- Local part must start and end with alphanumeric character
+- Local part can contain: a-z, A-Z, 0-9, dots, plus, underscore, hyphen
+- No consecutive dots anywhere in the email
+- No leading/trailing dots in local part
+- No whitespace anywhere (spaces, tabs, newlines)
+- Domain must have at least one dot
+- TLD must be at least 2 alphabetic characters only
+- Domain parts cannot start or end with hyphens
+- Do not allow special characters (plus, dot, hyphen, underscore) as the last character before @
+
+EXAMPLES:
+Valid:
+- "test@example.com" → true
+- "user+newsletter@example.com" → true
+- "user@a.co" → true (short domain is valid)
+- "a@b.co" → true (minimal valid email)
+
+Invalid:
+- "plainaddress" → false
+- "user+@example.com" → false (plus cannot be last char before @)
+- "a".repeat(65) + "@example.com" → false (exceeds 64 char limit)

@@ -1,0 +1,33 @@
+CONTEXT:
+You are building a utility library for a web application that needs to validate user email inputs during registration and contact forms. Invalid emails cause delivery failures and pollute the database.
+
+TASK:
+Create an email validation function using regex that:
+- Validates standard email formats (user@domain.com)
+- Handles plus addressing (user+tag@domain.com)
+- Handles subdomains (user@mail.domain.com)
+- Returns a boolean indicating validity
+
+FORMAT:
+- Single TypeScript function named `validateEmail`
+- Include inline comments explaining the regex pattern
+- Follow with a test suite using console.assert statements covering at least 10 test cases
+- Use strict TypeScript typing
+
+CONSTRAINTS:
+- Do not use external libraries (no email-validator packages)
+- Do not over-engineer: this is validation, not parsing
+- Regex must be readable (break it down in comments)
+- Do not accept emails with consecutive dots, leading/trailing dots in local part, or spaces
+
+EXAMPLES:
+Valid emails:
+- "test@example.com" → true
+- "user+newsletter@example.com" → true
+- "firstname.lastname@subdomain.example.org" → true
+
+Invalid emails:
+- "plainaddress" → false
+- "@missinglocal.com" → false
+- "user@.invalid.com" → false
+- "user..double@example.com" → false
