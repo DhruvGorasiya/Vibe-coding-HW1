@@ -1,0 +1,50 @@
+CONTEXT:
+You are building a production-grade caching layer for a high-performance web application. The cache must handle memory limits, automatic expiration with background cleanup, survive page reloads, and provide advanced features for monitoring and debugging.
+
+TASK:
+Create a TypeScript caching system with:
+- Time-to-live (TTL) for entries with automatic background cleanup
+- LRU eviction with O(1) operations
+- Persistence with debounced writes
+- Configurable maximum size
+- Advanced features: peek, entries iterator, atomic get-or-set
+
+FORMAT:
+- Single TypeScript file with Cache class
+- Full TypeScript generics and type safety
+- Export class and types for module usage
+
+CONSTRAINTS:
+All v2 features plus:
+- peek() method: get value without updating LRU status
+- entries() iterator: iterate over all entries with metadata (expiresAt, ttlRemaining)
+- getOrSet() method: atomic get-or-compute pattern with factory function
+- rename() method: change a key while preserving value and TTL
+- Automatic expired entry cleanup interval (configurable, optional)
+- destroy() method to stop cleanup timers
+- flush() method for immediate persistence before page unload
+
+EXAMPLES:
+const cache = new Cache({
+  maxSize: 100,
+  defaultTTL: 60000,
+  persist: true,
+  cleanupInterval: 30000, // Clean expired entries every 30s
+});
+
+// Peek without updating LRU
+const value = cache.peek("key");
+
+// Iterate entries with metadata
+for (const [key, value, meta] of cache.entries()) {
+  console.log(key, value, meta.ttlRemaining);
+}
+
+// Get or compute atomically
+const user = cache.getOrSet("user:123", () => fetchUser(123), 60000);
+
+// Rename key preserving TTL
+cache.rename("oldKey", "newKey");
+
+// Cleanup on page unload
+window.addEventListener("beforeunload", () => cache.flush());

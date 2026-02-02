@@ -1,0 +1,43 @@
+CONTEXT:
+You are building a caching layer for a web application that needs to store expensive computation results and API responses. The cache must handle memory limits, automatic expiration, and survive page reloads. Performance is critical.
+
+TASK:
+Create a TypeScript caching system with:
+- Time-to-live (TTL) for entries that auto-expire
+- Least Recently Used (LRU) eviction when cache is full
+- Persistence to localStorage with debounced writes
+- Configurable maximum size
+- Event callbacks for eviction and expiration
+- Batch operations for efficiency
+
+FORMAT:
+- Single TypeScript file with Cache class
+- Include all TypeScript interfaces and types
+- Export class for module usage
+
+CONSTRAINTS:
+- Do not use external libraries
+- TTL in milliseconds
+- get() updates "recently used" status
+- Use doubly-linked list for O(1) LRU operations
+- Debounce persistence writes (configurable delay, default 100ms)
+- Provide touch() method to refresh TTL without changing value
+- Provide setMany() and getMany() for batch operations
+- Event callbacks: onEvict(key, value), onExpire(key, value)
+- Handle localStorage quota errors gracefully
+- Support namespace prefixes for multiple cache instances
+
+EXAMPLES:
+const cache = new Cache({
+  maxSize: 100,
+  defaultTTL: 60000,
+  persist: true,
+  persistDebounce: 200,
+  namespace: "myapp",
+  onEvict: (key, value) => console.log(`Evicted: ${key}`),
+  onExpire: (key, value) => console.log(`Expired: ${key}`),
+});
+
+cache.setMany([["k1", "v1"], ["k2", "v2"]], 5000);
+const values = cache.getMany(["k1", "k2", "k3"]); // Map with found values
+cache.touch("k1", 10000); // Refresh TTL to 10 seconds

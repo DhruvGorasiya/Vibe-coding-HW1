@@ -1,0 +1,30 @@
+CONTEXT:
+You are building a caching layer for a web application that needs to store expensive computation results and API responses. The cache must handle memory limits, automatic expiration, and survive page reloads.
+
+TASK:
+Create a TypeScript caching system with:
+- Time-to-live (TTL) for entries that auto-expire
+- Least Recently Used (LRU) eviction when cache is full
+- Persistence to localStorage
+- Configurable maximum size
+
+FORMAT:
+- Single TypeScript file with Cache class
+- Include all TypeScript interfaces and types
+- Export class for module usage
+
+CONSTRAINTS:
+- Do not use external libraries
+- TTL should be in milliseconds
+- get() should update "recently used" status
+- Eviction removes least recently used item when adding to full cache
+- Persistence should save on every write and restore on initialization
+- Handle localStorage quota errors gracefully
+- Cache should work without persistence (in-memory only option)
+
+EXAMPLES:
+const cache = new Cache({ maxSize: 100, defaultTTL: 60000, persist: true });
+cache.set("user:123", userData, 30000); // 30 second TTL
+const user = cache.get("user:123"); // Returns userData or undefined if expired
+cache.delete("user:123");
+cache.clear();
